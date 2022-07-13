@@ -28,4 +28,21 @@ RSpec .describe Ship do
       expect(@ship.health).to eq(@ship.length)
     end
   end
+
+  describe 'sunk?' do
+    it 'returns false if not sunk' do
+      expect(@ship.sunk?).to eq(false)
+    end
+  end
+
+  describe 'hit' do
+    it 'reduces health by 1' do
+      @ship.hit
+        expect(@ship.health).to eq(2)
+        expect(@ship.sunk?).to eq(false)
+        @ship.hit
+        @ship.hit
+        expect(@ship.sunk?).to eq(true)
+    end
+  end
 end
