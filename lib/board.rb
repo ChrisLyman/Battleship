@@ -5,6 +5,7 @@ class Board
   def initialize(size)
     @size = size
     @letters_array = ("A".."Z").to_a
+    @cells = create_cells
   end
 
   def create_cells
@@ -22,4 +23,11 @@ class Board
     hash
   end
 
+  def valid_coordinate?(coordinate)
+    !@cells[coordinate].nil?
+  end
+
+  def valid_placement?(ship, coordinates)
+    coordinates.size == ship.length
+  end
 end

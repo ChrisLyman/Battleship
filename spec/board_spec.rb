@@ -25,7 +25,22 @@ RSpec.describe Board do
     it 'contains the cells within the board' do
       expect(@board.create_cells.size).to eq(16)
     end
-
   end
 
+  describe 'valid coordinate?' do
+    it 'returns true if coordinate is valid' do
+      expect(@board.valid_coordinate?("A1")).to be true
+      expect(@board.valid_coordinate?("D4")).to be true
+      expect(@board.valid_coordinate?("A5")).to be false
+      expect(@board.valid_coordinate?("E1")).to be false
+      expect(@board.valid_coordinate?("A22")).to be false
+    end
+  end
+
+  describe 'valid placement' do
+    it 'returns false when coordinate size is not the same as ship length' do
+      expect(@board.valid_placement?(@cruiser, ["A1", "A2"])).to be false
+      expect(@board.valid_placement?(@submarine, ["A2", "A3", "A4"])).to be false
+    end 
+  end
 end
