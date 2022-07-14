@@ -39,4 +39,54 @@ RSpec.describe Cell do
       expect(@cell.empty?).to be false
     end
   end
+
+  describe '#fired_upon?' do
+    it 'knows if its been fired upon' do
+      @cell.place_ship(@cruiser)
+
+      expect(@cell.fired_upon?).to be false
+
+      @cell.fire_upon
+
+      expect(@cell.fired_upon?).to be true
+      expect(@cell.ship.health).to eq(2)
+    end
+  end
+
+  describe '#render' do
+    before do
+      @cell_1 = Cell.new("B4")
+      @cell_2 = Cell.new("C3")
+    end
+
+    it 'returns "." as a default' do
+      expect(@cell_1.render).to eq(".")
+    end
+
+    it 'returns "M" when there is a miss' do
+      @cell_1.fire_upon
+      expect(@cell_1.render).to eq("M")
+    end
+
+    it 'returns "S" when the ship is placed' do
+      @cell_2.place_ship(@cruiser)
+      expect(@cell_2.render(true)).to eq("S")
+    end
+
+    it 'returns "H" when damaged' do
+      @cell_2.place_ship(@cruiser)
+      @cell_2.fire_upon
+      expect(@cell_2.render).to eq("H")
+    end
+
+    it 'returns "X" when sunk' do
+      @cell_2.place_ship(@cruiser)
+      @cell_2.fire_upon
+      @cruiser.hit
+      @cruiser.hit
+
+      expect(@cell_2.render).to eq("X")
+      expect(@cruiser.sunk?).to be true
+    end
+  end
 end
