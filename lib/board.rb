@@ -30,24 +30,27 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    coordinates.size == ship.length &&  valid_cell_coordinates?(coordinates)
+    coordinates.size == ship.length && valid_cell_coordinates?(coordinates)
+  end
 
+  def coordinate_hash(coordinates)
+    hash = Hash.new { |k,v| k[v] = []}
+    coordinates.each do |coord|
+      hash[:letter] << coord[0]
+      hash[:number] << coord[1]
+    end
+    hash
   end
-  def valid_consecutive_placement?(ship, coordinates)
-     valid_consecutive_number?(coordinates)
-     valid_consecutive_letter?(coordinates)
-  end
+
+  # def valid_consecutive_placement?(ship, coordinates)
+  #    valid_consecutive_number?(coordinates)
+  #    valid_consecutive_letter?(coordinates)
+  # end
 
   def valid_consecutive_number?(coordinates)
     coordinate_hash(coordinates)[:number].each_cons(2).all? do |num_1, num_2|
       num_1.to_i == num_2.to_i - 1
     end
-  end
-
-  def valid_cell_coordinates?(coordinates)
-    return false unless valid_empty_coordinates?(coordinates)
-    return true if valid_consecutive_number?(coordinates) && valid_duplicate_letters?(coordinates)
-    return true if valid_consecutive_letter?(coordinates) && valid_duplicate_numbers?(coordinates)
   end
 
   def valid_consecutive_letter?(coordinates)
@@ -56,10 +59,11 @@ class Board
     end
   end
 
-  def valid_empty_coordinates?(coordinates)
-    coordinates.all? do |coord|
-      @cells[coord].empty?
-    end
+  def valid_cell_coordinates?(coordinates)
+    return false unless valid_empty_coordinates?(coordinates)
+    return true if valid_consecutive_number?(coordinates) && valid_duplicate_letters?(coordinates)
+    return true if valid_consecutive_letter?(coordinates) && valid_duplicate_numbers?(coordinates)
+    false
   end
 
   def valid_duplicate_numbers?(coordinates)
@@ -74,12 +78,9 @@ class Board
     end
   end
 
-  def coordinate_hash(coordinates)
-    hash = Hash.new { |k,v| k[v] = []}
-    coordinates.each do |coord|
-      hash[:letter] << coord[0]
-      hash[:number] << coord[1]
+  def valid_empty_coordinates?(coordinates)
+    coordinates.all? do |coord|
+      @cells[coord].empty?
     end
-    hash
   end
 end
