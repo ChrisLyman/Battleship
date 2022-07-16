@@ -44,6 +44,7 @@ class Cell
     end
   end
 
+
   def ship_damaged
     if fired_upon? && !empty?
       true
