@@ -30,25 +30,47 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    coordinates.size == ship.length
-  end
-
-  def consecutive_placement?(ship, coordinates)
-    consecutive_number?(coordinates)
-    consectutive_letter?(coordinates)
+    coordinates.size == ship.length &&  valid_cell_coordinates?(coordinates)
 
   end
+  def valid_consecutive_placement?(ship, coordinates)
+     valid_consecutive_number?(coordinates)
+     valid_consecutive_letter?(coordinates)
+  end
 
-  def consecutive_number?(coordinates)
+  def valid_consecutive_number?(coordinates)
     coordinate_hash(coordinates)[:number].each_cons(2).all? do |num_1, num_2|
       num_1.to_i == num_2.to_i - 1
     end
   end
 
+  def valid_cell_coordinates?(coordinates)
+    return false unless valid_empty_coordinates?(coordinates)
+    return true if valid_consecutive_number?(coordinates) && valid_duplicate_letters?(coordinates)
+    return true if valid_consecutive_letter?(coordinates) && valid_duplicate_numbers?(coordinates)
+  end
 
-  def consectutive_letter?(coordinates)
+  def valid_consecutive_letter?(coordinates)
     coordinate_hash(coordinates)[:letter].each_cons(2).all? do |letter_1, letter_2|
       letter_1.ord == letter_2.ord - 1
+    end
+  end
+
+  def valid_empty_coordinates?(coordinates)
+    coordinates.all? do |coord|
+      @cells[coord].empty?
+    end
+  end
+
+  def valid_duplicate_numbers?(coordinates)
+    coordinate_hash(coordinates)[:number].each_cons(2).all? do |num_1, num_2|
+      num_1.to_i == num_2.to_i
+    end
+  end
+
+  def valid_duplicate_letters?(coordinates)
+    coordinate_hash(coordinates)[:letter].each_cons(2).all? do |letter_1, letter_2|
+      letter_1.ord == letter_2.ord
     end
   end
 
