@@ -83,4 +83,17 @@ class Board
       @cells[coord].empty?
     end
   end
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.each do |coord|
+        @cells[coord].place_ship(ship)
+      end
+      "OK"
+    else
+      "fail"
+    end
+  end
+
+  
 end
