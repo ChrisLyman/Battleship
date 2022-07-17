@@ -72,5 +72,23 @@ RSpec.describe Board do
       expect(@cell_2.ship).to eq(@cruiser)
       expect(@cell_3.ship).to eq(@cruiser)
     end
+
+    it 'returns fasle when two ships are overlapping' do
+      @board = Board.new(4)
+      @cruiser = Ship.new("Cruiser", 3)
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      @submarine = Ship.new("Submarine", 2)
+
+      expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to be false
+    end
+  end
+
+  describe 'render' do
+    it 'renders a string of letters and numbers' do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(@borad.render(true).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"))
+    end
   end
 end
