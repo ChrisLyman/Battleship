@@ -95,7 +95,19 @@ class Board
     end
   end
 
-  def render
-require "pry"; binding.pry
+  def render(show = false)
+    numbers_array = (1..@size).to_a
+    letters_array = @letters_array.slice(0, @size)
+    first_row = "  " + numbers_array.join(" ") + " \n"
+    rows = letters_array.map do |letter|
+      row_string = "#{letter}"
+      @cells.each do |key, cell|
+        row_string += " #{cell.render(show)}" if cell.coordinate.include?(letter)
+      end
+      [row_string += " "]
+
+    end
+
+    first_row + rows.join("\n") + ("\n")
   end
 end
