@@ -12,6 +12,7 @@ RSpec.describe Board do
   describe 'initialize' do
     it 'exists' do
       expect(@board).to be_instance_of(Board)
+      require "pry"; binding.pry
     end
   end
 

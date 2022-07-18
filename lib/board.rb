@@ -110,4 +110,11 @@ class Board
 
     first_row + rows.join("\n") + ("\n")
   end
+
+  def vertical_coordinates
+    cells.keys.select.with_index{|coordinate, index| index % 4 == 0} +
+      cells.keys.select.with_index{|coordinate, index| index % 4 == 1} +
+      cells.keys.select.with_index{|coordinate, index| index % 4 == 2} +
+      cells.keys.select.with_index{|coordinate, index| index % 4 == 3}
+  end
 end
