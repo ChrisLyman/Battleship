@@ -1,9 +1,9 @@
 class Game
-def initialize
-  @board_size = nil
-  @cpu_ships = generate_cpu_ships
+  def initialize
+    @board_size = nil
+    @cpu_ships = generate_cpu_ships
+  end
 
-end
   def start
     puts "Welcome to BATTLESHIP \n"
     puts "Enter p to play. Enter q to quit."
@@ -23,18 +23,32 @@ end
     else
        puts "Invalid Choice"
       start
-  end
+    end
 
-  def place_cpu_ships(board)
-    @cpu_ships.each do |ship|
-      coordinates = valid_cpu_coordinates(board, ship)
-      board.place(ship, coordinates)
-    end 
-  end
 
-  def generate_cpu_ships
-    ships == [["Battleship", 4], ["Cruiser", 3], ["Submarine", 2]["Destroyer", 2]]
-    ships.shuffle.take(2).map do |ship|
-      Ship.new(ship[0],ship[1])
-  end
+
+
+
+
+
+
+  # def place_cpu_ships(board)
+  #   @cpu_ships.each do |ship|
+  #     coordinates = valid_cpu_coordinates(board, ship)
+  #     board.place(ship, coordinates)
+  #   end
+  # end
+  #
+  # def generate_cpu_ships
+  #   ships == [["Battleship", 4], ["Cruiser", 3], ["Submarine", 2]["Destroyer", 2]]
+  #   ships.shuffle.take(2).map do |ship|
+  #     Ship.new(ship[0],ship[1])
+  #   end
+  # end
 end
+end
+
+
+
+
+# require 'pry'; binding.pry
