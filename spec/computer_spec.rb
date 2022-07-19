@@ -22,10 +22,11 @@ RSpec.describe Computer do
   end
 
     it 'has the ships on the board' do
+      ship = Ship.new("Cruiser", 3)
+      @computer.generate_random_coordinates(ship, true)
       allow(@computer).to receive(:generate_random_coordinates).and_return(["B2", "B3", "B4"], ["A1", "B1"])
-      @computer.place_cruiser
-      @computer.place_submarine
+      @computer.place_cpu_cruiser
+      @computer.place_cpu_submarine
       expect(@computer.cpu_board.render(true)).to eq("  1 2 3 4 \nA S . . . \nB S S S S \nC . . . . \nD . . . . \n")
     end
-
 end
