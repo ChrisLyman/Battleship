@@ -1,11 +1,12 @@
 require './lib/cell'
+
 class Board
 
   attr_reader :size,
               :cells
 
   def initialize(size)
-    @size = size
+    @size = size.to_i
     @letters_array = ("A".."Z").to_a
     @cells = create_cells
   end
