@@ -39,7 +39,7 @@ class Game
   # vertical is up and down if its true and left and right if its false
     potential_coordinates = []
     # coordinates = vertical ? cpu_board.cells.keys: cpu_board.vertical_coordinates
-   if vertical
+   coordinates = if vertical
       cpu_board.cells.keys # returns computer board as keys(reaching through)
     else
       cpu_board.vertical_coordinates #returns vertical coordinates
@@ -48,7 +48,7 @@ class Game
       potential_coordinates = coordinates.slice(rand(coordinates.length), ship.length)
       #randomizes valid coordinates
     end
-    potential_coordinates 
+    potential_coordinates
 
   end
 
@@ -91,7 +91,7 @@ class Game
 
   def turn(cpu_board, player_board)
     puts "===================== computer board ====================="
-    puts cpu_board.render(show = true)
+    puts cpu_board.render
     puts "===================== player board ====================="
     puts player_board.render(show = true)
     player_shot(cpu_board)
@@ -107,10 +107,12 @@ class Game
 
   def player_shot(cpu_board)
     puts "Select opponents cell to shoot"
-      player_shot = gets.chomp.upcase
+      #player_shot = gets.chomp.upcase
+      player_shot = cpu_board.cells.keys.sample(1).join
       until cpu_board.valid_coordinate?(player_shot) && !cpu_board.cells[player_shot].fired_upon?
           puts "Please enter a valid coordinate."
-          player_shot = gets.chomp.upcase
+          #player_shot = gets.chomp.upcase
+          player_shot = cpu_board.cells.keys.sample(1).join
       end
     player_cell = cpu_board.cells[player_shot]
     player_cell.fire_upon
