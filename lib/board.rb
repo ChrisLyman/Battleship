@@ -43,11 +43,6 @@ class Board
     hash
   end
 
-  # def valid_consecutive_placement?(ship, coordinates)
-  #    valid_consecutive_number?(coordinates)
-  #    valid_consecutive_letter?(coordinates)
-  # end
-
   def valid_consecutive_number?(coordinates)
     coordinate_hash(coordinates)[:number].each_cons(2).all? do |num_1, num_2|
       num_1.to_i == num_2.to_i - 1
@@ -106,9 +101,7 @@ class Board
         row_string += " #{cell.render(show)}" if cell.coordinate.include?(letter)
       end
       [row_string += " "]
-
     end
-
     first_row + rows.join("\n") + ("\n")
   end
 
