@@ -14,11 +14,6 @@ RSpec.describe Game do
       end
     end
 
-    describe 'start' do
-      it 'puts out two start messages' do
-        expect(@game.start).to eq("Welcome to BATTLESHIP")
-      end
-    end
 
       it 'has the ships on the board' do
          ship = Ship.new("Cruiser", 3)
@@ -29,5 +24,5 @@ RSpec.describe Game do
          expect(@game.cpu_board.render(true)).to eq("  1 2 3 4 \nA S . . . \nB S S S S \nC . . . . \nD . . . . \n")
        end
 
-       
+
 end

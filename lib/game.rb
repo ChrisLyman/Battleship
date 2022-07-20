@@ -9,7 +9,6 @@ class Game
   attr_reader  :cpu_board, :player
 
   def initialize
-    # @board_size = 4
     @cpu_cruiser = Ship.new("Cruiser", 3)
     @cpu_submarine = Ship.new("Submarine", 2)
     @player_cruiser = Ship.new("Cruiser", 3)
@@ -32,6 +31,11 @@ class Game
       place_player_cruiser(player_board)
       place_player_submarine(player_board)
       turn(cpu_board, player_board)
+    elsif play_or_quit == "q"
+      puts "Bye"
+    else
+      puts "Invalid Choice"
+      start
     end
   end
 
@@ -107,12 +111,12 @@ class Game
 
   def player_shot(cpu_board)
     puts "Select opponents cell to shoot"
-      #player_shot = gets.chomp.upcase
-      player_shot = cpu_board.cells.keys.sample(1).join
+      player_shot = gets.chomp.upcase
+      #player_shot = cpu_board.cells.keys.sample(1).join
       until cpu_board.valid_coordinate?(player_shot) && !cpu_board.cells[player_shot].fired_upon?
           puts "Please enter a valid coordinate."
-          #player_shot = gets.chomp.upcase
-          player_shot = cpu_board.cells.keys.sample(1).join
+          player_shot = gets.chomp.upcase
+          #player_shot = cpu_board.cells.keys.sample(1).join
       end
     player_cell = cpu_board.cells[player_shot]
     player_cell.fire_upon
@@ -141,16 +145,3 @@ class Game
   end
 end
 Game.new.start
-#   end
-# methods:
-#   board
-#   place_cpu_ships
-#     -board -cruiser, sub -coordinates
-#   place players ships
-#   taking turns
-#     cpu shot
-#       check cpu win
-#     player shot
-#       check player win
-#     end of game
-# end
